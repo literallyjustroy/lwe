@@ -27,7 +27,7 @@
 	<style>
 		textarea[type=text], select {
 			width: 70%;
-			padding: 30px 20px;
+			padding: 5px 5px;
 			margin: 8px 0;
 			display: inline-block;
 			border: 1px solid #716f79;
@@ -57,7 +57,9 @@
 	<!-- click on this method -->
 	<div>
 		<label for="inputBox">Input</label><br>
-		<textarea type="text" id="inputBox" name="inputBoxName" placeholder="Message.." rows="4" cols="50"></textarea><br><br><br>
+		<textarea type="text" id="inputBox" name="inputBoxName" autofocus=true placeholder="Message.." rows="4" cols="50">
+			</textarea>
+		<br><br><br>
 
 		<label for="outputBox">Output</label><br>
 		<textarea type="text" id="outputBox" name="outputBoxName" rows="4" cols="50"></textarea>
