@@ -18,11 +18,9 @@
 		<script src="js/jquery-3.4.1.min.js"></script>
 
 	<script>
-		$(document).ready(function() {
-			$("button1").click(function() {
-				$("outputBox").text($("inputBox").text());
-			});
-		});
+		function myFunction() {
+			("outputBox").text($("inputBox").text());
+		}
 	</script>
 	<style>
 		textarea[type=text], select {
@@ -57,14 +55,14 @@
 	<!-- click on this method -->
 	<div>
 		<label for="inputBox">Input</label><br>
-		<textarea type="text" id="inputBox" name="inputBoxName" autofocus=true placeholder="Message.." rows="10" cols="50"></textarea>
+		<textarea type="text" id="inputBox" name="inputBoxName" autofocus="true" placeholder="Message.." rows="10" cols="50"></textarea>
 		
 		<br><br><br>
 
 		<label for="outputBox">Output</label><br>
 		<textarea type="text" id="outputBox" name="outputBoxName" rows="10" cols="50"></textarea>
 		
-		<button id="button1" name="button1">test</button>
+		<button id="button1" onclick="myFunction()">test</button>
 	</div>
 </body>
 
