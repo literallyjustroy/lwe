@@ -3,7 +3,7 @@
 <html>
 <style>
 	body {
-		background-color: #151515;
+		background-color: #25252a;
 	}
 </style>
 <head>
@@ -15,12 +15,12 @@
 		<script src="js/chart/Chart.js"></script>
 
 	<!-- Jquery Library -->
-		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/jquery-3.4.1.js"></script>
 
 	<script>
-		function myFunction() {
+		$('#inputBox').on('input', function() {
 			document.getElementById("outputBox").innerHTML = document.getElementById("inputBox").value
-		}
+		});
 	</script>
 	<style>
 		textarea[type=text], select {
@@ -42,6 +42,10 @@
 			font-family: "Courier New", Courier, monospace;
 			font-size: 20px;
 			margin: 0 0 0 10px;
+		}
+
+		button[type=encipher], select {
+
 		}
 	</style>
 
