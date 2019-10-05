@@ -11,15 +11,17 @@
 	<title>Test site</title>
 	<LINK href="styles.css" rel="stylesheet" type="text/css">
 
-	<!-- ChartJS Library -->
-		<script src="js/chart/Chart.js"></script>
-
 	<!-- Jquery Library -->
 		<script src="js/jquery-3.4.1.js"></script>
 
+	<!-- ChartJS Library -->
+		<script src="js/chart/Chart.js"></script>
+
 	<script>
-		$('#inputBox').on('input', function() {
-			document.getElementById("outputBox").innerHTML = document.getElementById("inputBox").value
+		$(document).ready(function(){
+			$("#inputBox").on('input', function() {
+				$("#outputBox").val($("#inputBox").val());
+			});
 		});
 	</script>
 	<style>
@@ -41,11 +43,7 @@
 			color: aliceblue;
 			font-family: "Courier New", Courier, monospace;
 			font-size: 20px;
-			margin: 0 0 0 10px;
-		}
-
-		button[type=encipher], select {
-
+			margin: 20px 0 0 10px;
 		}
 	</style>
 
@@ -55,14 +53,12 @@
 	<!-- click on this method -->
 	<div>
 		<label for="inputBox">Input</label><br>
-		<textarea type="text" id="inputBox" name="inputBoxName" autofocus="true" placeholder="Message.." rows="10" cols="50"></textarea>
+		<textarea type="text" id="inputBox" name="inputBoxName" autofocus= placeholder="Message.." rows="10" cols="50"></textarea>
 
 		<br><br><br>
 
 		<label for="outputBox">Output</label><br>
 		<textarea type="text" id="outputBox" name="outputBoxName" rows="10" cols="50"></textarea>
-		
-		<button id="button1" onclick="myFunction()">test</button>
 	</div>
 </body>
 
