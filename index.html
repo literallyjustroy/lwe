@@ -26,7 +26,7 @@
 		textarea[type=text], select {
 			width: 70%;
 			padding: 5px 5px;
-			margin: 8px 0;
+			margin: 8px;
 			display: inline-block;
 			border: 1px solid #716f79;
 			background-color: #2f3036;
@@ -34,6 +34,7 @@
 			box-sizing: border-box;
 			color: aliceblue;
 			font-family: "Courier New", Courier, monospace;
+			resize: none;
 		}
 
 		div {
@@ -46,6 +47,7 @@
 			color: aliceblue;
 			font-family: "Courier New", Courier, monospace;
 			font-size: 20px;
+			margin: 0 0 0 10px;
 		}
 	</style>
 
@@ -56,7 +58,7 @@
 	<div>
 		<label for="inputBox">Input</label><br>
 		<textarea type="text" id="inputBox" name="inputBoxName" autofocus="true" placeholder="Message.." rows="10" cols="50"></textarea>
-		
+
 		<br><br><br>
 
 		<label for="outputBox">Output</label><br>
