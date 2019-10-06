@@ -45,6 +45,7 @@
 <body>
 	<!-- click on this method -->
 	<div>
+
 		<label for="inputBox">Input</label><br>
 		<textarea type="text" id="inputBox" name="inputBoxName" autofocus="true" placeholder="Message.." rows="10" cols="50"></textarea>
 
@@ -151,7 +152,7 @@
 					frequencies[alphabet[i]] = 0;	// Initialize each letter to 0
 				}
 				for (let i = 0; i < myText.length; i++) {
-					frequencies[myText[i]]++;
+					frequencies[myText[i].toLowerCase()]++;
 				}
 				return frequencies;
 			}
