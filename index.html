@@ -32,6 +32,10 @@
 			resize: none;
 		}
 
+		div {
+			margin: 10px;
+		}
+
 		label {
 			color: aliceblue;
 			font-family: "Courier New", Courier, monospace;
@@ -45,119 +49,121 @@
 <body>
 	<!-- click on this method -->
 	<div>
-		<label for="inputBox">Input</label><br>
-		<textarea type="text" id="inputBox" name="inputBoxName" autofocus="true" placeholder="Message.." rows="8" cols="50"></textarea>
+		<div>
+			<label for="inputBox">Input</label><br>
+			<textarea type="text" id="inputBox" name="inputBoxName" autofocus="true" placeholder="Message.." rows="8" cols="50"></textarea>
 
-		<br><br><br>
+			<br><br><br>
 
-		<label for="outputBox">Output</label><br>
-		<textarea type="text" id="outputBox" name="outputBoxName" rows="8" cols="50"></textarea>
-	</div>
+			<label for="outputBox">Output</label><br>
+			<textarea type="text" id="outputBox" name="outputBoxName" rows="8" cols="50"></textarea>
+		</div>
 
-	<canvas id="myChart" width="150" height="30"></canvas>
-	<script>
-		const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: alphabet,
-				datasets: [{
-					label: 'Frequency of letters',
-					data: [],
-					backgroundColor: [
-						'rgba(255, 99, 132, .7)',
-						'rgba(54, 162, 235, .7)',
-						'rgba(255, 206, 86, .7)',
-						'rgba(75, 192, 192, .7)',
-						'rgba(153, 102, 255, .7)',
-						'rgba(255, 159, 64, .7)',
-						'rgba(0, 139, 0, .7)',
-						'rgba(255, 64, 64, .7)',
-						'rgba(24, 116, 205, .7)',
-						'rgba(238, 174, 14, .7)',
-						'rgba(255, 127, 0, .7)',
-						'rgba(65, 105, 225, .7)',
-						'rgba(221, 160, 221, .7)',
-						'rgba(255, 99, 132, .7)',
-						'rgba(54, 162, 235, .7)',
-						'rgba(255, 206, 86, .7)',
-						'rgba(75, 192, 192, .7)',
-						'rgba(153, 102, 255, .7)',
-						'rgba(255, 159, 64, .7)',
-						'rgba(0, 139, 0, .7)',
-						'rgba(255, 64, 64, .7)',
-						'rgba(24, 116, 205, .7)',
-						'rgba(238, 174, 14, .7)',
-						'rgba(255, 127, 0, .7)',
-						'rgba(65, 105, 225, .7)',
-						'rgba(221, 160, 221, .7)'
-					],
-					borderColor: [
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)',
-						'rgba(0, 139, 0, 1)',
-						'rgba(255, 64, 64, 1)',
-						'rgba(24, 116, 205, 1)',
-						'rgba(238, 174, 14, 1)',
-						'rgba(255, 127, 0, 1)',
-						'rgba(65, 105, 225, 1)',
-						'rgba(221, 160, 221, 1)',
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)',
-						'rgba(0, 139, 0, 1)',
-						'rgba(255, 64, 64, 1)',
-						'rgba(24, 116, 205, 1)',
-						'rgba(238, 174, 14, 1)',
-						'rgba(255, 127, 0, 1)',
-						'rgba(65, 105, 225, 1)',
-						'rgba(221, 160, 221, 1)'
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
+		<canvas id="myChart" width="150" height="30"></canvas>
+		<script>
+			const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var myChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: alphabet,
+					datasets: [{
+						label: 'Frequency of letters',
+						data: [],
+						backgroundColor: [
+							'rgba(255, 99, 132, .7)',
+							'rgba(54, 162, 235, .7)',
+							'rgba(255, 206, 86, .7)',
+							'rgba(75, 192, 192, .7)',
+							'rgba(153, 102, 255, .7)',
+							'rgba(255, 159, 64, .7)',
+							'rgba(0, 139, 0, .7)',
+							'rgba(255, 64, 64, .7)',
+							'rgba(24, 116, 205, .7)',
+							'rgba(238, 174, 14, .7)',
+							'rgba(255, 127, 0, .7)',
+							'rgba(65, 105, 225, .7)',
+							'rgba(221, 160, 221, .7)',
+							'rgba(255, 99, 132, .7)',
+							'rgba(54, 162, 235, .7)',
+							'rgba(255, 206, 86, .7)',
+							'rgba(75, 192, 192, .7)',
+							'rgba(153, 102, 255, .7)',
+							'rgba(255, 159, 64, .7)',
+							'rgba(0, 139, 0, .7)',
+							'rgba(255, 64, 64, .7)',
+							'rgba(24, 116, 205, .7)',
+							'rgba(238, 174, 14, .7)',
+							'rgba(255, 127, 0, .7)',
+							'rgba(65, 105, 225, .7)',
+							'rgba(221, 160, 221, .7)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)',
+							'rgba(0, 139, 0, 1)',
+							'rgba(255, 64, 64, 1)',
+							'rgba(24, 116, 205, 1)',
+							'rgba(238, 174, 14, 1)',
+							'rgba(255, 127, 0, 1)',
+							'rgba(65, 105, 225, 1)',
+							'rgba(221, 160, 221, 1)',
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)',
+							'rgba(0, 139, 0, 1)',
+							'rgba(255, 64, 64, 1)',
+							'rgba(24, 116, 205, 1)',
+							'rgba(238, 174, 14, 1)',
+							'rgba(255, 127, 0, 1)',
+							'rgba(65, 105, 225, 1)',
+							'rgba(221, 160, 221, 1)'
+						],
+						borderWidth: 1
 					}]
+				},
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					}
 				}
-			}
-		});
-
-		$(document).ready(function(){
-			$("#inputBox").on('input', function() {
-				let inputText = $("#inputBox").val();
-				const frequencies = getLetterFrequencies(inputText);
-				for (let i = 0; i < alphabet.length; i++) {
-					myChart.data.datasets[0].data[i] = frequencies[alphabet[i]];
-				}
-				myChart.update();
 			});
-		});
 
-		function getLetterFrequencies(myText){
-			let frequencies = {};
-			for (let i = 0; i < alphabet.length; i++) {
-				frequencies[alphabet[i]] = 0;	// Initialize each letter to 0
-			}
-			for (let i = 0; i < myText.length; i++) {
-				frequencies[myText[i].toLowerCase()]++;
-			}
-			return frequencies;
-		}
+			$(document).ready(function(){
+				$("#inputBox").on('input', function() {
+					let inputText = $("#inputBox").val();
+					const frequencies = getLetterFrequencies(inputText);
+					for (let i = 0; i < alphabet.length; i++) {
+						myChart.data.datasets[0].data[i] = frequencies[alphabet[i]];
+					}
+					myChart.update();
+				});
+			});
 
-	</script>
+			function getLetterFrequencies(myText){
+				let frequencies = {};
+				for (let i = 0; i < alphabet.length; i++) {
+					frequencies[alphabet[i]] = 0;	// Initialize each letter to 0
+				}
+				for (let i = 0; i < myText.length; i++) {
+					frequencies[myText[i].toLowerCase()]++;
+				}
+				return frequencies;
+			}
+
+		</script>
+	</div>
 </body>
 
 </body>
