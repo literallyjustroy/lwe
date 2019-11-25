@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 
 <html>
-<style>
-	body {
-		background-color: #25252a;
-	}
-</style>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Test site</title>
-	<LINK href="styles.css" rel="stylesheet" type="text/css">
 
 	<!-- Jquery Library -->
 		<script src="js/jquery-3.4.1.js"></script>
@@ -17,154 +11,57 @@
 	<!-- ChartJS Library -->
 		<script src="js/chart/Chart.js"></script>
 
-	<style>
-		textarea[type=text], select {
-			width: 70%;
-			padding: 5px 5px;
-			margin: 8px;
-			display: inline-block;
-			border: 1px solid #716f79;
-			background-color: #2f3036;
-			border-radius: 4px;
-			box-sizing: border-box;
-			color: aliceblue;
-			font-family: "Courier New", Courier, monospace;
-			resize: none;
-		}
+		<script src="js/lwe/LWE.js"></script>
 
-		div {
-			margin: 10px;
-		}
+	<!-- Bootstrap Style -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-		label {
-			color: aliceblue;
-			font-family: "Courier New", Courier, monospace;
-			font-size: 20px;
-			margin: 20px 0 0 10px;
-		}
-	</style>
+	<LINK href="styles.css" rel="stylesheet" type="text/css">
 
 </head>
-
 <body>
-	<!-- click on this method -->
-	<div>
-		<div>
-			<label for="inputBox">Input</label><br>
+	<div class = "container">
+
+		<div class="col-xs-12 col-sm-3 sidebar-offcanvas" id="optionsPanel" role="navigation">
+			<div class="panel panel-default">
+				<div class="options-header panel-heading">
+					<heading>Options</heading>
+				</div>
+				<div class="options panel-body">
+					<form> <!-- Create table/grid? based off of size inputs -->
+						<div class="form-group">
+							<label for="optionSecretInput">Private Secret</label>
+							<input type="text" class="option-theme form-control" id="optionSecretInput" placeholder="Integer..">
+						</div>
+						<div class="form-group">
+							<label for="optionInput2">Public Key (A)</label>
+							<input type="text" class="option-theme form-control" id="optionInput2" placeholder="10 2 3 15 ..">
+						</div>
+						<div class="form-group">
+							<label for="optionInput3">Public Key (B)</label>
+							<input type="text" class="option-theme form-control" id="optionInput3" placeholder="10 2 3 15 ..">
+						</div>
+						<button type="button" class="option-theme btn btn-default" onclick=LWEEncrypt()>Encrypt</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-xs-9" role="navigation">
+			<heading for="inputBox">Input</heading><br>
 			<textarea type="text" id="inputBox" name="inputBoxName" autofocus="true" placeholder="Message.." rows="8" cols="50"></textarea>
 
-			<br><br><br>
-
-			<label for="outputBox">Output</label><br>
-			<textarea type="text" id="outputBox" name="outputBoxName" rows="8" cols="50"></textarea>
+			<div>
+				<heading for="outputBox">Output</heading><br>
+				<textarea type="text" id="outputBox" name="outputBoxName" rows="8" cols="50"></textarea>
+			</div>
 		</div>
 
 		<canvas id="myChart" width="150" height="30"></canvas>
-		<script>
-			const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-			var ctx = document.getElementById('myChart').getContext('2d');
-			var myChart = new Chart(ctx, {
-				type: 'bar',
-				data: {
-					labels: alphabet,
-					datasets: [{
-						label: 'Frequency of letters',
-						data: [],
-						backgroundColor: [
-							'rgba(255, 99, 132, .7)',
-							'rgba(54, 162, 235, .7)',
-							'rgba(255, 206, 86, .7)',
-							'rgba(75, 192, 192, .7)',
-							'rgba(153, 102, 255, .7)',
-							'rgba(255, 159, 64, .7)',
-							'rgba(0, 139, 0, .7)',
-							'rgba(255, 64, 64, .7)',
-							'rgba(24, 116, 205, .7)',
-							'rgba(238, 174, 14, .7)',
-							'rgba(255, 127, 0, .7)',
-							'rgba(65, 105, 225, .7)',
-							'rgba(221, 160, 221, .7)',
-							'rgba(255, 99, 132, .7)',
-							'rgba(54, 162, 235, .7)',
-							'rgba(255, 206, 86, .7)',
-							'rgba(75, 192, 192, .7)',
-							'rgba(153, 102, 255, .7)',
-							'rgba(255, 159, 64, .7)',
-							'rgba(0, 139, 0, .7)',
-							'rgba(255, 64, 64, .7)',
-							'rgba(24, 116, 205, .7)',
-							'rgba(238, 174, 14, .7)',
-							'rgba(255, 127, 0, .7)',
-							'rgba(65, 105, 225, .7)',
-							'rgba(221, 160, 221, .7)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)',
-							'rgba(0, 139, 0, 1)',
-							'rgba(255, 64, 64, 1)',
-							'rgba(24, 116, 205, 1)',
-							'rgba(238, 174, 14, 1)',
-							'rgba(255, 127, 0, 1)',
-							'rgba(65, 105, 225, 1)',
-							'rgba(221, 160, 221, 1)',
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)',
-							'rgba(0, 139, 0, 1)',
-							'rgba(255, 64, 64, 1)',
-							'rgba(24, 116, 205, 1)',
-							'rgba(238, 174, 14, 1)',
-							'rgba(255, 127, 0, 1)',
-							'rgba(65, 105, 225, 1)',
-							'rgba(221, 160, 221, 1)'
-						],
-						borderWidth: 1
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: true
-							}
-						}]
-					}
-				}
-			});
-
-			$(document).ready(function(){
-				$("#inputBox").on('input', function() {
-					let inputText = $("#inputBox").val();
-					const frequencies = getLetterFrequencies(inputText);
-					for (let i = 0; i < alphabet.length; i++) {
-						myChart.data.datasets[0].data[i] = frequencies[alphabet[i]];
-					}
-					myChart.update();
-				});
-			});
-
-			function getLetterFrequencies(myText){
-				let frequencies = {};
-				for (let i = 0; i < alphabet.length; i++) {
-					frequencies[alphabet[i]] = 0;	// Initialize each letter to 0
-				}
-				for (let i = 0; i < myText.length; i++) {
-					frequencies[myText[i].toLowerCase()]++;
-				}
-				return frequencies;
-			}
-
-		</script>
+		<script src="js/chart/FrequencyChart.js"></script>
 	</div>
-</body>
 
 </body>
 </html>
