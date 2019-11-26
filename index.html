@@ -31,16 +31,20 @@
 				<div class="options panel-body">
 					<form> <!-- Create table/grid? based off of size inputs -->
 						<div class="form-group">
+							<label for="securityInput">Security Parameter</label>
+							<input type="text" class="option-theme form-control" id="securityInput" placeholder="Integer..">
+						</div>
+						<div class="form-group">
 							<label for="optionSecretInput">Private Secret</label>
 							<input type="text" class="option-theme form-control" id="optionSecretInput" placeholder="Integer..">
 						</div>
 						<div class="form-group">
-							<label for="optionInput2">Public Key (A)</label>
-							<input type="text" class="option-theme form-control" id="optionInput2" placeholder="10 2 3 15 ..">
+							<label for="publicKeyAInput">Public Key (A)</label>
+							<input type="text" class="option-theme form-control" id="publicKeyAInput" placeholder="10 2 3 15 ..">
 						</div>
 						<div class="form-group">
-							<label for="optionInput3">Public Key (B)</label>
-							<input type="text" class="option-theme form-control" id="optionInput3" placeholder="10 2 3 15 ..">
+							<label for="publicKeyBInput">Public Key (B)</label>
+							<input type="text" class="option-theme form-control" id="publicKeyBInput" placeholder="10 2 3 15 ..">
 						</div>
 						<button type="button" class="option-theme btn btn-default" onclick=LWEEncrypt()>Encrypt</button>
 					</form>
