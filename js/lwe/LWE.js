@@ -31,7 +31,7 @@ function generateOptions() {
     let m = Math.floor(1.1 * n * Math.log10(q));  // number of equations
     let errors = getErrors(m);
     let keyA = getPublicKeyA(m, q);
-    let keyB = getPublicKeyB(keyA, q, secret, e)
+    //let keyB = getPublicKeyB(keyA, q, secret, e);
     $("#optionSecretInput").val(q); // TODO: Fix this
     $("#modulusInput").val(q);
     $("#publicKeyAInput").val(keyA);
