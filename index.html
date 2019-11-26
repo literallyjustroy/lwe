@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Test site</title>
+	<title>Learning With Errors Cipher</title>
 
 	<!-- Jquery Library -->
 		<script src="js/jquery-3.4.1.js"></script>
@@ -14,8 +14,12 @@
 		<script src="js/lwe/LWE.js"></script>
 
 	<!-- Bootstrap Style -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+	<!-- Underscore Library -->
+		<script src="js/underscore.js"></script>
+
 
 	<LINK href="styles.css" rel="stylesheet" type="text/css">
 
@@ -39,17 +43,21 @@
 				</div>
 				<div class="options panel-body">
 					<form>
-						<div class="form-group">
-							<label for="optionSecretInput">Private Secret</label>
+						<div class="col-xs-6 form-group">
+							<label for="optionSecretInput">Secret</label>
 							<input type="text" class="option-theme form-control" id="optionSecretInput" placeholder="Integer..">
 						</div>
-						<div class="form-group">
+						<div class="col-xs-6 form-group">
 							<label for="modulusInput">Modulus</label>
 							<input type="text" class="option-theme form-control" id="modulusInput" placeholder=" Prime Integer..">
 						</div>
 						<div class="form-group">
 							<label for="publicKeyAInput">Public Key (A)</label>
 							<input type="text" class="option-theme form-control" id="publicKeyAInput" placeholder="10 2 3 15 ..">
+						</div>
+						<div class="form-group">
+							<label for="errorsInput">Errors</label>
+							<input type="text" class="option-theme form-control" id="errorsInput" placeholder="10 2 3 15 ..">
 						</div>
 						<div class="form-group">
 							<label for="publicKeyBInput">Public Key (B)</label>

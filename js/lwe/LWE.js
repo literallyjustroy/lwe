@@ -23,18 +23,27 @@ function getLetterFrequencies(myText){
 function LWEEncrypt() {
     let inputText = $("#inputBox").val();
     let encodedMessage = encode(inputText);
+    let secret = $("#optionSecretInput").val();
+    let mod = $("#modulusInput").val();
+    let keyA = toIntArray($("#publicKeyAInput").val());
+    let errors = toIntArray($("#errorsInput").val());
+    let keyB = toIntArray($("#publicKeyBInput").val());
+    encryptBit(0, keyA, keyB)
 }
 
 function generateOptions() {
     let n = $("#securityInput").val();               // the security parameter
     let q = getPrime(n);                             // a random prime between n^2 and 2n^2
+    let secret = getRandomInteger(2,q);
     let m = Math.floor(1.1 * n * Math.log10(q));  // number of equations
+    let alpha = 1 / (Math.sqrt(n) * Math.pow(Math.log10(n), 2)); // TODO: Ask about this
     let errors = getErrors(m);
     let keyA = getPublicKeyA(m, q);
-    //let keyB = getPublicKeyB(keyA, q, secret, e);
-    $("#optionSecretInput").val(q); // TODO: Fix this
+    let keyB = getPublicKeyB(keyA, q, secret, errors);
+    $("#optionSecretInput").val(secret);
     $("#modulusInput").val(q);
     $("#publicKeyAInput").val(keyA);
+    $("#errorsInput").val(errors);
     $("#publicKeyBInput").val(keyB);
 }
 
@@ -43,26 +52,34 @@ function encode(inputText) {
     for (let i = 0; i < inputText.length; i++) {
         outputArray.push(inputText[i].charCodeAt(0).toString(2));
     }
-    let q = getPrime(n);
-    let m = Math.floor(1.1 * n * Math.log10(q));
-    let errors = getErrors(m);
-    alert(keyA);
-    encryptBit(outputArray[0][0], keyA, keyB, n, m, q, e)
+    return outputArray
 }
 
-function encryptBit(inputBit, keyA, keyB, n, m, q, e) {
-    let alpha = 1 / (Math.sqrt(n) * Math.log10(n) ^ 2);
-    alert("n: " + n + " q: " + q + " m: " + m + " alpha: " + alpha);
+function encryptBit(inputBit, keyA, keyB) {
+    let sampleA = [];
+    let sampleB = [];
+    //let sampleIndexes = _.sample(_.range(keyA.length), Math.floor(keyA.length/4));
+    let sampleIndexes = [11, 12, 8, 17, 7];
+    for (let i = 0; i < sampleIndexes.length; i++) {
+        sampleA.push(keyA[sampleIndexes[i]]);
+        sampleB.push(keyB[sampleIndexes[i]]);
+    }
+    alert(sampleA);
+    alert(sampleB);
 }
 
 function getPrime(n) {
     let maxTries = 1000;
+    let randInt = 0;
+    let a = Math.pow(n, 2);
+    let b = 2 * (Math.pow(n, 2));
     for(let i = 0; i < maxTries; i++) {
-        let randInt = getRandomInteger(n ^ 2, 2 * (n ^ 2));
+        randInt = getRandomInteger(a, b);
         if (isPrime(randInt))
             return randInt;
     }
-    throw "Failed to get prime in maxTries: " + maxTries;
+    alert("Failed to get prime in maxTries: " + maxTries);
+    throw "Failed to get prime in maxTries: " + maxTries; // TODO: Add error message
 }
 
 function getPublicKeyA(numEqns, prime) {
@@ -100,4 +117,16 @@ function isPrime(num)  {
 // get random integers min(inclusive) and max(exclusive)
 function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+function toIntArray(inputString) {
+    return inputString.split(',').map(Number)
+}
+
+function sumArray(a) {
+    let sum = 0;
+    for (let i = 0; i < a.length; i++) {
+        sum += a[i];
+    }
+    return sum;
 }
