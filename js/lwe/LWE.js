@@ -38,12 +38,12 @@ function LWEEncrypt() {
     let outputBox = $("#outputBox");
 
     let encodedMessage = encode(inputText);
-    alert(encodedMessage);
     let encrypted = [];
     encodedMessage.forEach(bit => {
             encrypted.push(encryptBit(bit, keyA, keyB, q));
             encrypted.push("\n");
         });
+    encrypted.pop(); // Removes the last \n
     outputBox.val("");
     encrypted.forEach(uvPair => {
         outputBox.val(outputBox.val() + uvPair);
@@ -103,9 +103,10 @@ function decode(inputText) {
     let outputText = "";
     let binaryCharsArray = splitArray(inputText.split(''), 8);
     binaryCharsArray.forEach(bitArray => {
-        let bitString = bitArray.join();
-        alert(bitString);
+        let bitString = bitArray.join('');
+        outputText += String.fromCharCode(parseInt(bitString,2));
     });
+    return outputText;
 }
 
 function encryptBit(inputBit, keyA, keyB, prime) {
