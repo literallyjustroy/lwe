@@ -72,6 +72,8 @@ function LWEDecrypt() { // TODO: Remove spaces from input
 
 function generateOptions() {
     let n = $("#securityInput").val();               // the security parameter
+    if (n === "")
+        alert("Error: Security Parameter required to generate parameters that provide both security and correctness")
     let q = getPrime(n);                             // a random prime between n^2 and 2n^2
     let secret = getRandomInteger(2,q);
     let m = Math.floor(1.1 * n * Math.log10(q));  // number of equations
@@ -84,6 +86,19 @@ function generateOptions() {
     $("#publicKeyAInput").val(keyA);
     $("#errorsInput").val(errors);
     $("#publicKeyBInput").val(keyB);
+}
+
+function generateKeyB() {
+    let secret = parseInt($("#optionSecretInput").val());
+    let q = parseInt($("#modulusInput").val());
+    let keyA = toIntArray($("#publicKeyAInput").val());
+    let errors = toIntArray($("#errorsInput").val());
+    let keyB = getPublicKeyB(keyA, q, secret, errors);
+
+    if (keyB.toString() === "NaN")
+        alert("Error: Secret, Modulus, Public Key (A), and Errors required to generate Public Key (B)");
+    else
+        $("#publicKeyBInput").val(keyB);
 }
 
 // turns text into an array of bits (as numbers)
