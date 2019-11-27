@@ -32,17 +32,16 @@ function getLetterFrequencies(myText){
 
 function LWEEncrypt() {
     let inputText = $("#inputBox").val();
-    let secret = $("#optionSecretInput").val();
-    let mod = $("#modulusInput").val();
+    let q = parseInt($("#modulusInput").val());
     let keyA = toIntArray($("#publicKeyAInput").val());
-    let errors = toIntArray($("#errorsInput").val());
     let keyB = toIntArray($("#publicKeyBInput").val());
     let outputBox = $("#outputBox");
 
     let encodedMessage = encode(inputText);
+    alert(encodedMessage);
     let encrypted = [];
     encodedMessage.forEach(bit => {
-            encrypted.push(encryptBit(bit, keyA, keyB, mod));
+            encrypted.push(encryptBit(bit, keyA, keyB, q));
             encrypted.push("\n");
         });
     outputBox.val("");
@@ -51,19 +50,24 @@ function LWEEncrypt() {
     });
 }
 
-function LWEDecrypt() {
+function LWEDecrypt() { // TODO: Remove spaces from input
     let inputText = $("#inputBox").val();
-    let secret = $("#optionSecretInput").val();
-    let mod = $("#modulusInput").val();
+    let secret = parseInt($("#optionSecretInput").val());
+    let q = parseInt($("#modulusInput").val());
     let keyA = toIntArray($("#publicKeyAInput").val());
     let keyB = toIntArray($("#publicKeyBInput").val());
     let outputBox = $("#outputBox");
 
+    let encrypted = parseInput(inputText);
+    let outputBits = [];
+    let outputMessage = "";
 
-
+    // Creates an output message of decrypted bits in binary
     encrypted.forEach(uvPair => {
-        outputBox.val(outputBox.val() + uvPair);
+        outputMessage += getBitFromUV(uvPair, secret, q);
     });
+
+    outputBox.val(decode(outputMessage));
 }
 
 function generateOptions() {
@@ -85,10 +89,23 @@ function generateOptions() {
 // turns text into an array of bits (as numbers)
 function encode(inputText) {
     let output = "";
+    let bits;
     for (let i = 0; i < inputText.length; i++) {
-        output += inputText[i].charCodeAt(0).toString(2);
+        bits = inputText[i].charCodeAt(0).toString(2);
+        while (bits.length < 8)
+            bits = "0" + bits;
+        output += bits;
     }
     return Array.from(output).map(Number);
+}
+
+function decode(inputText) {
+    let outputText = "";
+    let binaryCharsArray = splitArray(inputText.split(''), 8);
+    binaryCharsArray.forEach(bitArray => {
+        let bitString = bitArray.join();
+        alert(bitString);
+    });
 }
 
 function encryptBit(inputBit, keyA, keyB, prime) {
@@ -99,8 +116,8 @@ function encryptBit(inputBit, keyA, keyB, prime) {
         sampleA.push(keyA[sampleIndexes[i]]);
         sampleB.push(keyB[sampleIndexes[i]]);
     }
-    let u = sumArray(sampleA) % prime;
-    let v = (sumArray(sampleB) + Math.floor((prime/2) * inputBit)) % prime;
+    let u = mod(sumArray(sampleA), prime);
+    let v = mod((sumArray(sampleB) + Math.floor((prime/2) * inputBit)), prime);
     return [u, v];
 }
 
@@ -129,7 +146,7 @@ function getPublicKeyA(numEqns, prime) {
 function getPublicKeyB(keyA, prime, secret, errors) {
     let keyB = [];
     for (let i = 0; i < keyA.length; i++) {
-        keyB.push((keyA[i] * secret + errors[i]) % prime)
+        keyB.push(mod((keyA[i] * secret + errors[i]), prime));
     }
     return keyB;
 }
@@ -140,6 +157,25 @@ function getErrors(num) {
         errors.push(getRandomInteger(1, 5))
     }
     return errors;
+}
+
+function getBitFromUV(uvPair, secret, q) {
+    let u = uvPair[0];
+    let v = uvPair[1];
+    let dec = mod(v - secret * u, q);
+    // alert ("u:" + u + " v:" + v + " dec:" + dec);
+    if (dec < mod(dec - q / 2, q))
+        return 0;
+    else
+        return 1;
+}
+
+function parseInput(inputText) {
+    let inputMessage = [];
+    inputText.split("\n").forEach(uvPair => {
+        inputMessage.push(uvPair.split(","));
+    });
+    return inputMessage;
 }
 
 function isPrime(num)  {
@@ -159,10 +195,25 @@ function toIntArray(inputString) {
     return inputString.split(',').map(Number)
 }
 
+function splitArray(myArray, chunk_size){
+    let results = [];
+
+    while (myArray.length) {
+        results.push(myArray.splice(0, chunk_size));
+    }
+
+    return results;
+}
+
 function sumArray(a) {
     let sum = 0;
     for (let i = 0; i < a.length; i++) {
         sum += a[i];
     }
     return sum;
+}
+
+// positive modulo
+function mod(n, m) {
+    return ((n % m) + m) % m;
 }
