@@ -7,6 +7,16 @@ $(document).ready(function(){
         }
         myChart.update();
     });
+
+    // Catches enter key presses on forms and acts like "tab" was pressed if it's on a text form
+    $('input').keydown( function(e) {
+        let key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+        if(key === 13) {
+            e.preventDefault();
+            let inputs = $(this).closest('form').find(':input:visible');
+            inputs.eq( inputs.index(this)+ 1 ).focus();
+        }
+    });
 });
 
 function getLetterFrequencies(myText){
@@ -22,13 +32,38 @@ function getLetterFrequencies(myText){
 
 function LWEEncrypt() {
     let inputText = $("#inputBox").val();
-    let encodedMessage = encode(inputText);
     let secret = $("#optionSecretInput").val();
     let mod = $("#modulusInput").val();
     let keyA = toIntArray($("#publicKeyAInput").val());
     let errors = toIntArray($("#errorsInput").val());
     let keyB = toIntArray($("#publicKeyBInput").val());
-    encryptBit(0, keyA, keyB)
+    let outputBox = $("#outputBox");
+
+    let encodedMessage = encode(inputText);
+    let encrypted = [];
+    encodedMessage.forEach(bit => {
+            encrypted.push(encryptBit(bit, keyA, keyB, mod));
+            encrypted.push("\n");
+        });
+    outputBox.val("");
+    encrypted.forEach(uvPair => {
+        outputBox.val(outputBox.val() + uvPair);
+    });
+}
+
+function LWEDecrypt() {
+    let inputText = $("#inputBox").val();
+    let secret = $("#optionSecretInput").val();
+    let mod = $("#modulusInput").val();
+    let keyA = toIntArray($("#publicKeyAInput").val());
+    let keyB = toIntArray($("#publicKeyBInput").val());
+    let outputBox = $("#outputBox");
+
+
+
+    encrypted.forEach(uvPair => {
+        outputBox.val(outputBox.val() + uvPair);
+    });
 }
 
 function generateOptions() {
@@ -47,25 +82,26 @@ function generateOptions() {
     $("#publicKeyBInput").val(keyB);
 }
 
+// turns text into an array of bits (as numbers)
 function encode(inputText) {
-    let outputArray = [];
+    let output = "";
     for (let i = 0; i < inputText.length; i++) {
-        outputArray.push(inputText[i].charCodeAt(0).toString(2));
+        output += inputText[i].charCodeAt(0).toString(2);
     }
-    return outputArray
+    return Array.from(output).map(Number);
 }
 
-function encryptBit(inputBit, keyA, keyB) {
+function encryptBit(inputBit, keyA, keyB, prime) {
     let sampleA = [];
     let sampleB = [];
-    //let sampleIndexes = _.sample(_.range(keyA.length), Math.floor(keyA.length/4));
-    let sampleIndexes = [11, 12, 8, 17, 7];
+    let sampleIndexes = _.sample(_.range(keyA.length), Math.floor(keyA.length/4));
     for (let i = 0; i < sampleIndexes.length; i++) {
         sampleA.push(keyA[sampleIndexes[i]]);
         sampleB.push(keyB[sampleIndexes[i]]);
     }
-    alert(sampleA);
-    alert(sampleB);
+    let u = sumArray(sampleA) % prime;
+    let v = (sumArray(sampleB) + Math.floor((prime/2) * inputBit)) % prime;
+    return [u, v];
 }
 
 function getPrime(n) {
