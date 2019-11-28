@@ -54,12 +54,9 @@ function LWEDecrypt() { // TODO: Remove spaces from input
     let inputText = $("#inputBox").val();
     let secret = parseInt($("#optionSecretInput").val());
     let q = parseInt($("#modulusInput").val());
-    let keyA = toIntArray($("#publicKeyAInput").val());
-    let keyB = toIntArray($("#publicKeyBInput").val());
     let outputBox = $("#outputBox");
 
     let encrypted = parseInput(inputText);
-    let outputBits = [];
     let outputMessage = "";
 
     // Creates an output message of decrypted bits in binary
@@ -83,9 +80,9 @@ function generateOptions() {
     let keyB = getPublicKeyB(keyA, q, secret, errors);
     $("#optionSecretInput").val(secret);
     $("#modulusInput").val(q);
-    $("#publicKeyAInput").val(keyA);
-    $("#errorsInput").val(errors);
-    $("#publicKeyBInput").val(keyB);
+    document.getElementById("publicKeyAInput").value = keyA;
+    document.getElementById("errorsInput").value = errors;
+    document.getElementById("publicKeyBInput").value = keyB;
 }
 
 function generateKeyB() {
@@ -98,7 +95,7 @@ function generateKeyB() {
     if (keyB.toString() === "NaN")
         alert("Error: Secret, Modulus, Public Key (A), and Errors required to generate Public Key (B)");
     else
-        $("#publicKeyBInput").val(keyB);
+        document.getElementById("publicKeyBInput").value = keyB;
 }
 
 // turns text into an array of bits (as numbers)
