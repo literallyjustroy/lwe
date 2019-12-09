@@ -50,6 +50,14 @@ heading {
   font-size: 20px;
 }
 
+.header {
+  color: aliceblue;
+}
+
+.footer {
+  color: aliceblue;
+}
+
 label {
   color: aliceblue;
   font-family: monospace;
