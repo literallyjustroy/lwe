@@ -30,6 +30,14 @@ function getLetterFrequencies(myText){
     return frequencies;
 }
 
+function swapIO() {
+    let inputBox = $("#inputBox");
+    let outputBox = $("#outputBox");
+    let temp = outputBox.val();
+    outputBox.val(inputBox.val());
+    inputBox.val(temp);
+}
+
 function LWEEncrypt() {
     let inputText = $("#inputBox").val();
     let q = parseInt($("#modulusInput").val());
