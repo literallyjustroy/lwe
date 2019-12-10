@@ -1,11 +1,6 @@
 $(document).ready(function(){
     $("#inputBox").on('input', function() {
-        let inputText = $("#inputBox").val();
-        const frequencies = getLetterFrequencies(inputText);
-        for (let i = 0; i < alphabet.length; i++) {
-            myChart.data.datasets[0].data[i] = frequencies[alphabet[i]];
-        }
-        myChart.update();
+        updateChart();
     });
 
     // Catches enter key presses on forms and acts like "tab" was pressed if it's on a text form
@@ -18,6 +13,15 @@ $(document).ready(function(){
         }
     });
 });
+
+function updateChart() {
+    let inputText = $("#inputBox").val();
+    const frequencies = getLetterFrequencies(inputText);
+    for (let i = 0; i < alphabet.length; i++) {
+        myChart.data.datasets[0].data[i] = frequencies[alphabet[i]];
+    }
+    myChart.update();
+}
 
 function getLetterFrequencies(myText){
     let frequencies = {};
@@ -36,6 +40,7 @@ function swapIO() {
     let temp = outputBox.val();
     outputBox.val(inputBox.val());
     inputBox.val(temp);
+    updateChart();
 }
 
 function LWEEncrypt() {
