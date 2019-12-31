@@ -72,6 +72,10 @@ label {
   color: aliceblue;
 }
 
+.heading-text {
+  color: #b8bfc4;
+}
+
 .generate-theme {
     background-color: #aab0b0;
     color: #000000;

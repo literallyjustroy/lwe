@@ -28,6 +28,10 @@
 <body>
 	<div class="page-header">
 		<h1 class="header">Learning with Errors Cipher</h1>
+		<text class="heading-text">An implementation of encryption/decryption using the
+			<a href="https://cims.nyu.edu/~regev/papers/lwesurvey.pdf">Learning with Errors problem</a>
+			 by Oded Regev
+		</text>
 	</div>
 	<div class = "container">
 		<div class="col-xs-12 col-sm-3 sidebar-offcanvas" id="optionsPanel" role="navigation">
@@ -70,11 +74,22 @@ correctness based on the Security Parameter"
 						</div>
 						<div class="form-group">
 							<label for="publicKeyBInput">Public Key (B)</label>
-							<button type="button" class="option-theme btn btn-success" onclick=generateKeyB()>Generate</button>
+							<button type="button" class="option-theme btn btn-success"
+									data-toggle="tooltip" title="Generates a Public Key (B) from the Secret,
+Modulus, Public Key (A), and the Errors."
+									onclick=generateKeyB()>Generate
+							</button>
 							<input type="text" class="option-theme form-control" id="publicKeyBInput" placeholder="10 2 3 15 ..">
 						</div>
-						<button type="button" class="col-xs-6 btn btn-primary" onclick=LWEEncrypt()>Encrypt</button>
-						<button type="button" class="col-xs-6 btn btn-primary" onclick=LWEDecrypt()>Decrypt</button>
+						<button type="button" class="col-xs-6 btn btn-primary"
+								data-toggle="tooltip" title="Encrypts a message using ONLY both public keys."
+								onclick=LWEEncrypt()>Encrypt
+						</button>
+						<button type="button" class="col-xs-6 btn btn-primary"
+								data-toggle="tooltip" title="Attempts to decrypt a given message
+using ONLY the Secret and Modulus."
+								onclick=LWEDecrypt()>Decrypt
+						</button>
 					</form>
 				</div>
 			</div>
@@ -88,7 +103,10 @@ correctness based on the Security Parameter"
 						  placeholder="Message.." rows="8" cols="50"></textarea>
 			</div>
 			<div style="text-align:center">
-				<button type="button" class="btn swap-button" onclick=swapIO()>↑ Swap ↓</button>
+				<button type="button" class="btn swap-button"
+						data-toggle="tooltip" title="Swaps the text between the input and output boxes."
+						onclick=swapIO()>↑ Swap ↓
+				</button>
 			</div>
 			<div>
 				<heading for="outputBox">Output</heading><br>
