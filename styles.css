@@ -18,6 +18,10 @@ body {
   border-color: #716f79;
 }
 
+.swap-button {
+  background-color: #9ca2a6;
+}
+
 .options {
   padding:5px;
   background-color: #222222;
