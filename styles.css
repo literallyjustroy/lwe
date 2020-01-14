@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #2d2d2d;
+  background-color: #292a2d;
   margin:10px;
 }
 
@@ -19,18 +19,18 @@ body {
 }
 
 .swap-button {
-  background-color: #9ca2a6;
+  background-color: #373a40;
+  color: #dae2e2;
+}
+
+.swap-button:hover {
+  background-color: #212226;
+  color: #dae2e2;
 }
 
 .options {
   padding:5px;
   background-color: #222222;
-}
-
-#octocat {
-  display: block;
-  width:384px;
-  margin: 50px auto;
 }
 
 textarea[type=text], select {
@@ -39,14 +39,16 @@ textarea[type=text], select {
   padding: 5px;
   margin: 8px;
   display: inline-block;
-  border: 1px solid #716f79;
-  background-color: #3e3e3e;
+  border: 1px solid #47464c;
+  background-color: #484a4d;
   border-radius: 4px;
   box-sizing: border-box;
   color: aliceblue;
   font-family: "Courier New", Courier, monospace;
   resize: none;
 }
+
+
 
 heading {
   color: aliceblue;
@@ -70,6 +72,11 @@ label {
 .option-theme {
   background-color: #191919;
   color: aliceblue;
+  border: 1px solid #47464c;
+}
+
+.option-button {
+  border: 1px solid #278f23;
 }
 
 .heading-text {
