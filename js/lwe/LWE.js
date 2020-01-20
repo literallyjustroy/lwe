@@ -14,6 +14,7 @@ $(document).ready(function(){
     });
 });
 
+// Updates the letter frequency chart
 function updateChart() {
     let inputText = $("#inputBox").val();
     const frequencies = getLetterFrequencies(inputText);
@@ -50,43 +51,51 @@ function LWEEncrypt() {
     let keyB = toIntArray($("#publicKeyBInput").val());
     let outputBox = $("#outputBox");
 
-    let encodedMessage = encode(inputText);
-    let encrypted = [];
-    encodedMessage.forEach(bit => {
-            encrypted.push(encryptBit(bit, keyA, keyB, q));
-            encrypted.push("\n");
+    if ($.isNumeric(q) && keyA !== '' && keyB !== '') {
+        let encodedMessage = encode(inputText);
+        let encrypted = [];
+        encodedMessage.forEach(bit => {
+                encrypted.push(encryptBit(bit, keyA, keyB, q));
+                encrypted.push("\n");
+            });
+        encrypted.pop(); // Removes the last \n
+        outputBox.val("");
+        encrypted.forEach(uvPair => {
+            outputBox.val(outputBox.val() + uvPair);
         });
-    encrypted.pop(); // Removes the last \n
-    outputBox.val("");
-    encrypted.forEach(uvPair => {
-        outputBox.val(outputBox.val() + uvPair);
-    });
+    } else {
+        alert('Encryption requires a Modulus, Public Key (A), and Public Key (B)');
+    }
 }
 
-function LWEDecrypt() { // TODO: Remove spaces from input
+function LWEDecrypt() {
     let inputText = $("#inputBox").val();
-    let secret = parseInt($("#optionSecretInput").val());
     let q = parseInt($("#modulusInput").val());
+    let secret = parseInt($("#optionSecretInput").val());
     let outputBox = $("#outputBox");
 
-    let encrypted = parseInput(inputText);
-    let outputMessage = "";
+    if ($.isNumeric(parseInt(inputText)) && $.isNumeric(q) && $.isNumeric(secret)) {
+        let encrypted = parseInput(inputText);
+        let outputMessage = "";
 
-    // Creates an output message of decrypted bits in binary
-    encrypted.forEach(uvPair => {
-        outputMessage += getBitFromUV(uvPair, secret, q);
-    });
+        // Creates an output message of decrypted bits in binary
+        encrypted.forEach(uvPair => {
+            outputMessage += getBitFromUV(uvPair, secret, q);
+        });
 
-    outputBox.val(decode(outputMessage));
+        outputBox.val(decode(outputMessage));
+    } else {
+        alert('Decryption requires a Secret, Modulus, and correctly formatted input text');
+    }
 }
 
 function generateOptions() {
-    let n = $("#securityInput").val();               // the security parameter
+    let n = $("#securityInput").val();                // the security parameter
     if ($.isNumeric(n)) {
-        let q = getPrime(n);                             // a random prime between n^2 and 2n^2
+        let q = getPrime(n);                          // a random prime between n^2 and 2n^2
         let secret = getRandomInteger(2, q);
         let m = Math.floor(1.1 * n * Math.log10(q));  // number of equations
-        let alpha = 1 / (Math.sqrt(n) * Math.pow(Math.log10(n), 2)); // TODO: Ask about this
+        let alpha = 1 / (Math.sqrt(n) * Math.pow(Math.log10(n), 2)); // Could be used to generate distributed errors
         let errors = getErrors(m);
         let keyA = getPublicKeyA(m, q);
         let keyB = getPublicKeyB(keyA, q, secret, errors);
