@@ -91,7 +91,7 @@ function LWEDecrypt() {
 
 function generateOptions() {
     let n = $("#securityInput").val();                // the security parameter
-    if ($.isNumeric(n)) {
+    if ($.isNumeric(n) && n < 100000) {
         let q = getPrime(n);                          // a random prime between n^2 and 2n^2
         let secret = getRandomInteger(2, q);
         let m = Math.floor(1.1 * n * Math.log10(q));  // number of equations
@@ -105,7 +105,7 @@ function generateOptions() {
         document.getElementById("errorsInput").value = errors;
         document.getElementById("publicKeyBInput").value = keyB;
     } else {
-        alert("Error: Security Parameter required to generate parameters that provide both security and correctness");
+        alert("Error: Security Parameter required as integer below 100000");
     }
 
 }
