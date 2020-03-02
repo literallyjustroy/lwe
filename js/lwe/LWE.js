@@ -91,7 +91,7 @@ function LWEDecrypt() {
 
 function generateOptions() {
     let n = $("#securityInput").val();                // the security parameter
-    if ($.isNumeric(n) && n < 100000 && n > 4) {
+    if ($.isNumeric(n) && n <= 100000 && n >= 4) {
         let q = getPrime(n);                          // a random prime between n^2 and 2n^2
         let secret = getRandomInteger(2, q);
         let m = Math.floor(1.1 * n * Math.log10(q));  // number of equations
