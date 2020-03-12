@@ -4,6 +4,7 @@ This is a basic cryptographic implementation of Oded Regev's Learning with Error
 ## Usage
 You can encrypt and decrypt messages.
 In order to encrypt a message you need the A and B public key, and the public prime modulus. To decrypt a message, you need the secret and modulus.
+You can generate these parameters automatically using a Security Parameter, or manually input them. The length of public key A, and public key B must align, and the secret must be smaller than the modulus to ensure correctness.
 
 
 ## Process
